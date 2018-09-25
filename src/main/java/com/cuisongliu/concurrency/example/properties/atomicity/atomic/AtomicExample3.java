@@ -1,3 +1,4 @@
+package com.cuisongliu.concurrency.example.properties.atomicity.atomic;
 /*
  * The MIT License (MIT)
  *
@@ -21,10 +22,28 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
+
+import com.cuisongliu.concurrency.annoations.ThreadSafe;
+import lombok.extern.slf4j.Slf4j;
+
+import java.util.concurrent.atomic.AtomicReference;
+
 /**
- * 多线程的有序性
- *
+ * Atomic 实现线程安全（CAS compare and swap ）
  * @author cuisongliu [cuisongliu@qq.com]
- * @since 2018-09-25 下午2:47
+ * @since 2018-09-25 上午11:42
  */
-package com.cuisongliu.concurrency.example.ordering;
+@Slf4j
+@ThreadSafe
+public class AtomicExample3 {
+    private static AtomicReference<Integer> count = new AtomicReference<>(0);
+
+    public static void main(String[] args) {
+        count.compareAndSet(0,2);
+        count.compareAndSet(0,1);
+        count.compareAndSet(1,3);
+        count.compareAndSet(2,4);
+        count.compareAndSet(3,5);
+        log.info("atomicity:{}",count.get());
+    }
+}

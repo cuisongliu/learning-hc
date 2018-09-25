@@ -1,4 +1,4 @@
-package com.cuisongliu.concurrency.example.atomicity.atomic;
+package com.cuisongliu.concurrency.example.properties.atomicity.atomic;
 /*
  * The MIT License (MIT)
  *
@@ -24,13 +24,10 @@ package com.cuisongliu.concurrency.example.atomicity.atomic;
  */
 
 import com.cuisongliu.concurrency.annoations.ThreadSafe;
+import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
 
-import java.util.concurrent.CountDownLatch;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
-import java.util.concurrent.Semaphore;
-import java.util.concurrent.atomic.LongAdder;
+import java.util.concurrent.atomic.AtomicIntegerFieldUpdater;
 
 /**
  * Atomic 实现线程安全（CAS compare and swap ）
@@ -39,36 +36,20 @@ import java.util.concurrent.atomic.LongAdder;
  */
 @Slf4j
 @ThreadSafe
-public class AtomicExample2 {
-    //请求总数
-    private static int clientTotal = 5000;
-    //同时并发执行的线程数
-    private static int threadTotal = 200;
-
-    private static LongAdder count = new LongAdder();
-
-    public static void main(String[] args) throws Exception{
-        ExecutorService executorService = Executors.newCachedThreadPool();
-        final Semaphore semaphore = new Semaphore(threadTotal);
-        final CountDownLatch countDownLatch = new CountDownLatch(clientTotal);
-        for (int i =0; i < clientTotal;i++) {
-            executorService.execute(()->{
-                try {
-                    semaphore.acquire();
-                    add();
-                    semaphore.release();
-                }catch (Exception e){
-                    log.error("exception",e);
-                }
-                countDownLatch.countDown();
-            });
+public class AtomicExample4 {
+    private static AtomicIntegerFieldUpdater<AtomicExample4> updater = AtomicIntegerFieldUpdater.newUpdater(AtomicExample4.class,"count");
+    @Getter
+    public   volatile int count = 100;
+    private static AtomicExample4 example4 = new AtomicExample4();
+    public static void main(String[] args) {
+        if (updater.compareAndSet(example4,100,200)){
+            log.info("update success:{}",example4.getCount());
         }
-        countDownLatch.await();
-        executorService.shutdown();
-        log.info("atomicity:{}",count.longValue());
-    }
 
-    private static void add() {
-        count.increment();
+        if (updater.compareAndSet(example4,100,200)){
+            log.info("update success:{}",example4.getCount());
+        }else {
+            log.error("update failed:{}",example4.getCount());
+        }
     }
 }

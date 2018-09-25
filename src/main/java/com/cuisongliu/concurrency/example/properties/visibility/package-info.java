@@ -22,9 +22,9 @@
  * THE SOFTWARE.
  */
 /**
- * 多线程的可见性
+ * 多线程的可见性 volatile
  *
  * @author cuisongliu [cuisongliu@qq.com]
  * @since 2018-09-25 下午2:47
  */
-package com.cuisongliu.concurrency.example.visibility;
+package com.cuisongliu.concurrency.example.properties.visibility;

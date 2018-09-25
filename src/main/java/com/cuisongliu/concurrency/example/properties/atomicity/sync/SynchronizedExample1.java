@@ -1,4 +1,4 @@
-package com.cuisongliu.concurrency.example.atomicity.sync;/*
+package com.cuisongliu.concurrency.example.properties.atomicity.sync;/*
  * The MIT License (MIT)
  *
  * Copyright (c) 2018 cuisongliu@qq.com

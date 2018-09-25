@@ -1,4 +1,4 @@
-package com.cuisongliu.concurrency.example.atomicity.sync;/*
+/*
  * The MIT License (MIT)
  *
  * Copyright (c) 2018 cuisongliu@qq.com
@@ -21,35 +21,12 @@ package com.cuisongliu.concurrency.example.atomicity.sync;/*
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-
-import com.cuisongliu.concurrency.annoations.ThreadSafe;
-import lombok.extern.slf4j.Slf4j;
-
 /**
- * 关键字使用
- *
+ * 多线程的有序性
+ * volatile:
+ * synchronized:
+ * Lock:
  * @author cuisongliu [cuisongliu@qq.com]
- * @since 2018-09-25 下午2:21
+ * @since 2018-09-25 下午2:47
  */
-@Slf4j
-@ThreadSafe
-public class SynchronizedExample2 {
-
-    private int count = 0;
-
-    public static void test1() {
-        synchronized (SynchronizedExample2.class) {
-            for (int i = 0; i < 10; i++) {
-                log.info("test1 - {}", i);
-            }
-        }
-    }
-
-    public static synchronized void test2() {
-        for (int i = 0; i < 10; i++) {
-            log.info("test2 - {}", i);
-        }
-    }
-
-
-}
+package com.cuisongliu.concurrency.example.properties.ordering;

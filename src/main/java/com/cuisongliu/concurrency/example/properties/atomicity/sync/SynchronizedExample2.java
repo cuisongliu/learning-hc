@@ -1,5 +1,4 @@
-package com.cuisongliu.concurrency.example.atomicity.atomic;
-/*
+package com.cuisongliu.concurrency.example.properties.atomicity.sync;/*
  * The MIT License (MIT)
  *
  * Copyright (c) 2018 cuisongliu@qq.com
@@ -24,32 +23,33 @@ package com.cuisongliu.concurrency.example.atomicity.atomic;
  */
 
 import com.cuisongliu.concurrency.annoations.ThreadSafe;
-import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
 
-import java.util.concurrent.atomic.AtomicIntegerFieldUpdater;
-
 /**
- * Atomic 实现线程安全（CAS compare and swap ）
+ * 关键字使用
+ *
  * @author cuisongliu [cuisongliu@qq.com]
- * @since 2018-09-25 上午11:42
+ * @since 2018-09-25 下午2:21
  */
 @Slf4j
 @ThreadSafe
-public class AtomicExample4 {
-    private static AtomicIntegerFieldUpdater<AtomicExample4> updater = AtomicIntegerFieldUpdater.newUpdater(AtomicExample4.class,"count");
-    @Getter
-    public   volatile int count = 100;
-    private static AtomicExample4 example4 = new AtomicExample4();
-    public static void main(String[] args) {
-        if (updater.compareAndSet(example4,100,200)){
-            log.info("update success:{}",example4.getCount());
-        }
+public class SynchronizedExample2 {
 
-        if (updater.compareAndSet(example4,100,200)){
-            log.info("update success:{}",example4.getCount());
-        }else {
-            log.error("update failed:{}",example4.getCount());
+    private int count = 0;
+
+    public static void test1() {
+        synchronized (SynchronizedExample2.class) {
+            for (int i = 0; i < 10; i++) {
+                log.info("test1 - {}", i);
+            }
         }
     }
+
+    public static synchronized void test2() {
+        for (int i = 0; i < 10; i++) {
+            log.info("test2 - {}", i);
+        }
+    }
+
+
 }
