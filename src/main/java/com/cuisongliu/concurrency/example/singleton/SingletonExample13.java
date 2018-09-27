@@ -22,19 +22,20 @@ package com.cuisongliu.concurrency.example.singleton;/*
  * THE SOFTWARE.
  */
 
-import com.cuisongliu.concurrency.annoations.ThreadUnSafe;
+import com.cuisongliu.concurrency.annoations.ThreadSafe;
 
 /**
  * 单例exam1
  * 懒汉式
- * 单例在第一次使用的时候创建  双重同步锁 有指令重排的问题
+ * 单例在第一次使用的时候创建  双重同步锁　volatile解决了重排序问题
+ * volatile　＋　双重同步锁
  * @author cuisongliu [cuisongliu@qq.com]
  * @since 2018-09-27 上午9:26
  */
-@ThreadUnSafe
+@ThreadSafe
 public class SingletonExample13 {
-
-    private static SingletonExample13 instance = null;
+    // volatile 保證有序性防止指令重排序
+    private static volatile SingletonExample13 instance = null;
 
     private SingletonExample13() {
     }
@@ -48,7 +49,7 @@ public class SingletonExample13 {
     public static SingletonExample13 getInstance(){
         if (instance == null){
             synchronized (SingletonExample13.class){
-                if (instance!=null){
+                if (instance==null){
                     instance = new SingletonExample13();
                 }
             }

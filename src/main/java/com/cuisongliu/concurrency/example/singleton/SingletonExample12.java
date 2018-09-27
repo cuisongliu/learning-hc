@@ -27,7 +27,7 @@ import com.cuisongliu.concurrency.annoations.ThreadUnSafe;
 /**
  * 单例exam1
  * 懒汉式
- * 单例在第一次使用的时候创建  双重同步锁
+ * 单例在第一次使用的时候创建  双重同步锁 有指令重排的问题
  * @author cuisongliu [cuisongliu@qq.com]
  * @since 2018-09-27 上午9:26
  */
@@ -46,9 +46,9 @@ public class SingletonExample12 {
     //JVM和CPU发生指令重排序
     //静态工厂方法
     public static SingletonExample12 getInstance(){
-        if (instance == null){
+        if (instance == null){ //雙重檢查機制
             synchronized (SingletonExample12.class){
-                if (instance!=null){
+                if (instance==null){
                     instance = new SingletonExample12();
                 }
             }

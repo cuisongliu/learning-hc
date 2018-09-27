@@ -1,4 +1,4 @@
-package com.cuisongliu.concurrency;
+package com.cuisongliu.concurrency.template;
 /*
  * The MIT License (MIT)
  *
@@ -23,7 +23,6 @@ package com.cuisongliu.concurrency;
  * THE SOFTWARE.
  */
 
-import com.cuisongliu.concurrency.annoations.ThreadUnSafe;
 import lombok.extern.slf4j.Slf4j;
 
 import java.util.concurrent.CountDownLatch;
@@ -33,27 +32,30 @@ import java.util.concurrent.Semaphore;
 
 /**
  * @author cuisongliu [cuisongliu@qq.com]
- * @since 2018-09-25 上午11:42
+ * @since 2018-09-27 22:53
  */
 @Slf4j
-@ThreadUnSafe
-public class ConcurrencyTest {
+public abstract class AbstractThreadClass {
     //请求总数
     private static int clientTotal = 5000;
     //同时并发执行的线程数
     private static int threadTotal = 200;
 
-    private static int count = 0;
+    public abstract void testExec();
+    public abstract void testExec(int count);
+    public abstract String log4j();
 
-    public static void main(String[] args) throws Exception{
+    public void main() throws InterruptedException {
         ExecutorService executorService = Executors.newCachedThreadPool();
         final Semaphore semaphore = new Semaphore(threadTotal);
         final CountDownLatch countDownLatch = new CountDownLatch(clientTotal);
         for (int i =0; i < clientTotal;i++) {
+            final int count = i;
             executorService.execute(()->{
                 try {
                     semaphore.acquire();
-                    add();
+                    testExec();
+                    testExec(count);
                     semaphore.release();
                 }catch (Exception e){
                     log.error("exception",e);
@@ -63,10 +65,6 @@ public class ConcurrencyTest {
         }
         countDownLatch.await();
         executorService.shutdown();
-        log.info("atomicity:{}",count);
-    }
-
-    private static void add() {
-        count++;
+        log.info(this.getClass().getSimpleName()+":{}",log4j());
     }
 }
