@@ -1,4 +1,4 @@
-/*
+package com.cuisongliu.concurrency.example.publish;/*
  * The MIT License (MIT)
  *
  * Copyright (c) 2018 cuisongliu@qq.com
@@ -21,10 +21,32 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
+
+import com.cuisongliu.concurrency.annoations.ThreadUnSafe;
+import com.cuisongliu.concurrency.annoations.UnRecommend;
+import lombok.extern.slf4j.Slf4j;
+
 /**
- * 发布对象
- * 非线程安全的案例
  * @author cuisongliu [cuisongliu@qq.com]
- * @since 2018-09-25 下午3:15
+ * @since 2018-09-27 上午9:13
  */
-package com.cuisongliu.concurrency.example.publish;
+@Slf4j
+@ThreadUnSafe
+@UnRecommend
+public class Escape {
+    private  int thisCanBeEscape = 0;
+
+    public Escape() {
+        new InnerClass();
+    }
+
+    public static void main(String[] args) {
+        new Escape();
+    }
+
+    private class InnerClass{
+        public InnerClass() {
+            log.info("{}",Escape.this.thisCanBeEscape);
+        }
+    }
+}

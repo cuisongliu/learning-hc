@@ -1,4 +1,4 @@
-/*
+package com.cuisongliu.concurrency.example.publish;/*
  * The MIT License (MIT)
  *
  * Copyright (c) 2018 cuisongliu@qq.com
@@ -21,10 +21,27 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
+
+import com.cuisongliu.concurrency.annoations.ThreadUnSafe;
+import lombok.Getter;
+import lombok.extern.slf4j.Slf4j;
+
+import java.util.Arrays;
+
 /**
- * 发布对象
- * 非线程安全的案例
  * @author cuisongliu [cuisongliu@qq.com]
- * @since 2018-09-25 下午3:15
+ * @since 2018-09-27 上午9:13
  */
-package com.cuisongliu.concurrency.example.publish;
+@Slf4j
+@ThreadUnSafe
+public class UnsafePublish {
+    @Getter
+    private String[] states={"a","b","c"};
+
+    public static void main(String[] args) {
+        UnsafePublish unsafePublish = new UnsafePublish();
+        log.info("{}", Arrays.toString(unsafePublish.getStates()));
+        unsafePublish.getStates()[0] = "d";
+        log.info("{}", Arrays.toString(unsafePublish.getStates()));
+    }
+}

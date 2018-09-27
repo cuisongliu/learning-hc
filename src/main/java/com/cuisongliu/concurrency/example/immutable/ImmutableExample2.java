@@ -1,4 +1,4 @@
-/*
+package com.cuisongliu.concurrency.example.immutable;/*
  * The MIT License (MIT)
  *
  * Copyright (c) 2018 cuisongliu@qq.com
@@ -21,10 +21,28 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
+
+import com.cuisongliu.concurrency.annoations.ThreadSafe;
+import com.google.common.collect.Maps;
+
+import java.util.Collections;
+import java.util.Map;
+
 /**
- * 发布对象
- * 非线程安全的案例
  * @author cuisongliu [cuisongliu@qq.com]
- * @since 2018-09-25 下午3:15
+ * @since 2018-09-27 上午10:27
  */
-package com.cuisongliu.concurrency.example.publish;
+@ThreadSafe
+public class ImmutableExample2 {
+    private static Map<Integer,Integer> map = Maps.newHashMap();
+    static {
+        map.put(1,2);
+        map.put(3,4);
+        map.put(5,6);
+        map = Collections.unmodifiableMap(map);
+    }
+
+    public static void main(String[] args) {
+        
+    }
+}

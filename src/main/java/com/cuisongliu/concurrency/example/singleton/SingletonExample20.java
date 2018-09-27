@@ -1,4 +1,4 @@
-/*
+package com.cuisongliu.concurrency.example.singleton;/*
  * The MIT License (MIT)
  *
  * Copyright (c) 2018 cuisongliu@qq.com
@@ -21,10 +21,31 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
+
+import com.cuisongliu.concurrency.annoations.ThreadSafe;
+import com.cuisongliu.concurrency.annoations.UnRecommend;
+
 /**
- * 发布对象
- * 非线程安全的案例
+ * 单例exam2
+ * 饿汉式
+ * 单例在类装载的时候创建
  * @author cuisongliu [cuisongliu@qq.com]
- * @since 2018-09-25 下午3:15
+ * @since 2018-09-27 上午9:26
  */
-package com.cuisongliu.concurrency.example.publish;
+@UnRecommend
+@ThreadSafe
+public class SingletonExample20 {
+    //step1
+    private static SingletonExample20 instance = null;
+    //step2
+    static {
+        instance = new SingletonExample20();
+    }
+    //切记静态代码块和声明静态变量的顺序
+    private SingletonExample20() {
+    }
+    //静态工厂方法
+    public static SingletonExample20 getInstance(){
+        return SingletonExample20.instance;
+    }
+}

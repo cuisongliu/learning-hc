@@ -1,4 +1,4 @@
-/*
+package com.cuisongliu.concurrency.example.singleton;/*
  * The MIT License (MIT)
  *
  * Copyright (c) 2018 cuisongliu@qq.com
@@ -21,10 +21,40 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
+
+import com.cuisongliu.concurrency.annoations.Recommend;
+import com.cuisongliu.concurrency.annoations.ThreadSafe;
+
 /**
- * 发布对象
- * 非线程安全的案例
+ * 枚举实现单例
+ * 最安全
  * @author cuisongliu [cuisongliu@qq.com]
- * @since 2018-09-25 下午3:15
+ * @since 2018-09-27 上午10:15
  */
-package com.cuisongliu.concurrency.example.publish;
+@ThreadSafe
+@Recommend
+public class SingletonExample30 {
+
+    private SingletonExample30() {
+    }
+
+    public static SingletonExample30 getInstance(){
+        return Singleton.INSTANCE.getInstance();
+    }
+    private enum Singleton {
+        /**
+         * 实例枚举
+         */
+        INSTANCE;
+        private SingletonExample30 singleton;
+        /**
+         * JVM保证这个方法绝对只执行一次
+         */
+        Singleton() {
+            singleton = new SingletonExample30();
+        }
+        public SingletonExample30 getInstance(){
+            return singleton;
+        }
+    }
+}

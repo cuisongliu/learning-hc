@@ -22,9 +22,9 @@
  * THE SOFTWARE.
  */
 /**
- * 发布对象
- * 非线程安全的案例
+ * 单例且线程安全
+ *
  * @author cuisongliu [cuisongliu@qq.com]
- * @since 2018-09-25 下午3:15
+ * @since 2018-09-27 上午9:25
  */
-package com.cuisongliu.concurrency.example.publish;
+package com.cuisongliu.concurrency.example.singleton;

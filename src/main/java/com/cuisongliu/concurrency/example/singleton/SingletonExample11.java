@@ -1,4 +1,4 @@
-/*
+package com.cuisongliu.concurrency.example.singleton;/*
  * The MIT License (MIT)
  *
  * Copyright (c) 2018 cuisongliu@qq.com
@@ -21,10 +21,30 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
+
+import com.cuisongliu.concurrency.annoations.ThreadSafe;
+import com.cuisongliu.concurrency.annoations.UnRecommend;
+
 /**
- * 发布对象
- * 非线程安全的案例
+ * 单例exam1
+ * 懒汉式
+ * 单例在第一次使用的时候创建 sync的使用
  * @author cuisongliu [cuisongliu@qq.com]
- * @since 2018-09-25 下午3:15
+ * @since 2018-09-27 上午9:26
  */
-package com.cuisongliu.concurrency.example.publish;
+@UnRecommend
+@ThreadSafe
+public class SingletonExample11 {
+
+    private static SingletonExample11 instance = null;
+
+    private SingletonExample11() {
+    }
+    //静态工厂方法
+    public synchronized static SingletonExample11 getInstance(){
+        if (instance == null){
+            instance = new SingletonExample11();
+        }
+        return SingletonExample11.instance;
+    }
+}
