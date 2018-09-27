@@ -24,7 +24,7 @@ package com.cuisongliu.concurrency.example.threadlocal;
  */
 
 /**
- * 存储线程中独享变量 保证线程安全
+ * 存储线程中独享变量 保证线程安全  线程封闭
  * @author cuisongliu [cuisongliu@qq.com]
  * @since 2018-09-27 21:20
  */

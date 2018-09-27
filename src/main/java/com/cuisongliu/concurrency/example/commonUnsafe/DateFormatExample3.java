@@ -42,7 +42,7 @@ public class DateFormatExample3 {
             @Override
             public void testExec() {
                 try {
-                    //线程封闭 在方法中声明局部变量是线程安全的 （局部变量值是放到虚拟机栈中）
+                    //堆栈封闭 在方法中声明局部变量是线程安全的 （局部变量值是放到虚拟机栈中）
                     SimpleDateFormat dateFormat = new SimpleDateFormat("yyyyMMdd");
                     dateFormat.parse("20180101");
                 } catch (ParseException e) {
