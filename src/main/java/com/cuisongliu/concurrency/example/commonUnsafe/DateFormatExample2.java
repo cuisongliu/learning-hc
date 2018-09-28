@@ -37,10 +37,9 @@ import java.text.SimpleDateFormat;
 @Slf4j
 @ThreadUnSafe
 public class DateFormatExample2 {
-//    private static SimpleDateFormat dateFormat = new SimpleDateFormat("yyyyMMdd");
+    private static SimpleDateFormat dateFormat = new SimpleDateFormat("yyyyMMdd");
     public static void main(String[] args) throws Exception{
         new AbstractThreadClass() {
-            SimpleDateFormat dateFormat = new SimpleDateFormat("yyyyMMdd");
             @Override
             public void testExec() {
                 try {
