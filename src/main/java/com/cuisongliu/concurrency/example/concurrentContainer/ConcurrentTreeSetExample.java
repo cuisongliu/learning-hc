@@ -1,4 +1,4 @@
-package com.cuisongliu.concurrency.example.concurrent;
+package com.cuisongliu.concurrency.example.concurrentContainer;
 /*
  * The MIT License (MIT)
  *
@@ -26,18 +26,18 @@ package com.cuisongliu.concurrency.example.concurrent;
 import com.cuisongliu.concurrency.annoations.ThreadSafe;
 import com.cuisongliu.concurrency.template.AbstractThreadClass;
 
-import java.util.Map;
-import java.util.concurrent.ConcurrentSkipListMap;
+import java.util.Set;
+import java.util.concurrent.ConcurrentSkipListSet;
 
 /**
  * @author cuisongliu [cuisongliu@qq.com]
  * @since 2018-09-28 20:33
  */
 @ThreadSafe
-public class ConcurrentTreeMapExample {
+public class ConcurrentTreeSetExample {
     public static void main(String[] args) throws Exception {
         new AbstractThreadClass() {
-            private Map<Integer,Integer> map = new ConcurrentSkipListMap<>();
+            private Set<Integer> set = new ConcurrentSkipListSet<>();
             @Override
             public void testExec() {
 
@@ -45,12 +45,12 @@ public class ConcurrentTreeMapExample {
 
             @Override
             public void testExec(int count) {
-                map.put(count,count);
+                set.add(count);
             }
 
             @Override
             public String log4j() {
-                return map.size()+"";
+                return set.size()+"";
             }
         }.main();
     }
