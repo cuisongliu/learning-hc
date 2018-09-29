@@ -36,23 +36,21 @@ import java.util.concurrent.Semaphore;
  * @since 2018-09-28 21:15
  */
 @Slf4j
-public class SemaphoreExample2 {
+public class SemaphoreExample1 {
     //同时并发执行的线程数
     private static int threadTotal = 200;
 
     public static void main(String[] args) throws Exception {
         ExecutorService executorService = Executors.newCachedThreadPool();
         //限制每次执行10个线程
-        //需要同时执行的并发数量
-        Semaphore semaphore = new Semaphore(4);
+        Semaphore semaphore = new Semaphore(10);
         for (int i =0; i < threadTotal;i++) {
             final int threadNum = i;
             executorService.execute(() -> {
                 try {
-                    //需要或得的许可数量 会影响到最后同时执行的数量为 4-2
-                    semaphore.acquire(2);
+                    semaphore.acquire();
                     test(threadNum);
-                    semaphore.release(1);
+                    semaphore.release();
                 }catch (Exception e){
                     log.info("error");
                 }
@@ -63,7 +61,7 @@ public class SemaphoreExample2 {
     }
 
     private static void test(int threadNum) throws InterruptedException {
-        Thread.sleep(500);
+        Thread.sleep(1000);
         log.info(threadNum+"");
     }
 
