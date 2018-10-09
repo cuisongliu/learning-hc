@@ -1,4 +1,4 @@
-/*
+package com.cuisongliu.concurrency.example.pool;/*
  * The MIT License (MIT)
  *
  * Copyright (c) 2018 cuisongliu@qq.com
@@ -21,19 +21,27 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
+
+import lombok.extern.slf4j.Slf4j;
+
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+
 /**
- * corePoolSize 核心线程数量
- * maximumPoolSize 线程最大线程数
- * workQueue 阻塞队列、存储等待执行的任务，很重要，会堆线程池运行过程产生重大影响
- * keepAliveTime 线程没有任务执行时最多保持多久时间终止
- * unit : keepAliveTime的时间单位
- * threadFactory: 线程工厂、用来创建线程
- * rejectHandler: 当拒绝处理任务时的策略
- *
- * 合理配置
- * cpu密集型任务　就需要尽量压榨cpu　参考值可以设置为　nCPU+1
- * io密集型任务　参考值设置为　２*nCPU
  * @author cuisongliu [cuisongliu@qq.com]
- * @since 2018-10-09 上午8:30
+ * @since 2018-10-09 下午9:16
  */
-package com.cuisongliu.concurrency.example.pool;
+@Slf4j
+public class ThreadPoolExample1 {
+    public static void main(String[] args) {
+        ExecutorService service = Executors.newCachedThreadPool();
+        for (int i =0;i<10 ;i++){
+            final int index = i;
+            service.execute(()->{
+                log.info("task:{}",index);
+            });
+        }
+        service.shutdown();
+
+    }
+}
