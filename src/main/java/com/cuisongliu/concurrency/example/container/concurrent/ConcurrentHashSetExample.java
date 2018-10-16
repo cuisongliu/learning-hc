@@ -1,4 +1,4 @@
-package com.cuisongliu.concurrency.example.syncContainer;
+package com.cuisongliu.concurrency.example.container.concurrent;
 /*
  * The MIT License (MIT)
  *
@@ -23,37 +23,35 @@ package com.cuisongliu.concurrency.example.syncContainer;
  * THE SOFTWARE.
  */
 
-import com.cuisongliu.concurrency.annoations.ThreadUnSafe;
+import com.cuisongliu.concurrency.annoations.ThreadSafe;
+import com.cuisongliu.concurrency.template.AbstractThreadClass;
 
-import java.util.Vector;
+import java.util.Set;
+import java.util.concurrent.CopyOnWriteArraySet;
 
 /**
- * VectorExample1
- *
  * @author cuisongliu [cuisongliu@qq.com]
- * @since 2018-09-28 19:40
+ * @since 2018-09-28 20:33
  */
-@ThreadUnSafe
-public class VectorExample2 {
-    private static Vector<Integer> vector = new Vector<>();
+@ThreadSafe
+public class ConcurrentHashSetExample {
     public static void main(String[] args) throws Exception {
-        for(;;){
-            for (int i =0;i< 1000 ; i++){
-                vector.add(i);
+        new AbstractThreadClass() {
+            private Set<Integer> set = new CopyOnWriteArraySet<>();//重入锁
+            @Override
+            public void testExec() {
+
             }
 
-            new Thread(() -> {
-                for (int i =0;i< vector.size() ; i++){
-                    vector.remove(i);
-                }
-            }).start();
+            @Override
+            public void testExec(int count) {
+                set.add(count);
+            }
 
-            new Thread(() -> {
-                for (int i =0;i< vector.size() ; i++){
-                    vector.get(i);
-                }
-            }).start();
-        }
-
+            @Override
+            public String log4j() {
+                return set.size()+"";
+            }
+        }.main();
     }
 }

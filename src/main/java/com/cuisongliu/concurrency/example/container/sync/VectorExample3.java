@@ -1,4 +1,4 @@
-package com.cuisongliu.concurrency.example.concurrentContainer;
+package com.cuisongliu.concurrency.example.container.sync;
 /*
  * The MIT License (MIT)
  *
@@ -23,34 +23,49 @@ package com.cuisongliu.concurrency.example.concurrentContainer;
  * THE SOFTWARE.
  */
 
-import com.cuisongliu.concurrency.annoations.ThreadSafe;
-import com.cuisongliu.concurrency.template.AbstractThreadClass;
+import com.cuisongliu.concurrency.annoations.ThreadUnSafe;
 
-import java.util.List;
-import java.util.concurrent.CopyOnWriteArrayList;
+import java.util.Iterator;
+import java.util.Vector;
 
 /**
+ * VectorExample1
+ *
  * @author cuisongliu [cuisongliu@qq.com]
- * @since 2018-09-28 20:33
+ * @since 2018-09-28 19:40
  */
-@ThreadSafe
-public class ConcurrentListExample {
+@ThreadUnSafe
+public class VectorExample3 {
+    private static void test1(Vector<Integer> v1){
+        for (Integer i:v1){
+            if (i==3)v1.remove(i);
+        }
+    }
+
+    private static void test2(Vector<Integer> v1){
+        Iterator<Integer> iterator = v1.iterator();
+        while (iterator.hasNext()){
+            Integer i = iterator.next();
+            if (i==3)iterator.remove();
+        }
+    }
+    private static void test3(Vector<Integer> v1){
+        Iterator<Integer> iterator = v1.iterator();
+        while (iterator.hasNext()){
+            Integer i = iterator.next();
+            if (i==3)v1.remove(i);
+        }
+    }
+    private static void test4(Vector<Integer> v1){
+        for (int i =0;i<v1.size();i++){
+            if (i==3)v1.remove(i);
+        }
+    }
     public static void main(String[] args) throws Exception {
-        new AbstractThreadClass() {
-            private List<Integer> list = new CopyOnWriteArrayList<>();//重入锁+复制数组
-            @Override
-            public void testExec() {
-                list.add(1);
-            }
-
-            @Override
-            public void testExec(int count) {
-            }
-
-            @Override
-            public String log4j() {
-                return list.size()+"";
-            }
-        }.main();
+        Vector<Integer> vector = new Vector<>();
+        vector.add(1);
+        vector.add(2);
+        vector.add(3);
+        test2(vector);
     }
 }

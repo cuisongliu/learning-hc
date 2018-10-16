@@ -1,4 +1,4 @@
-package com.cuisongliu.concurrency.example.syncContainer;
+package com.cuisongliu.concurrency.example.container.sync;
 /*
  * The MIT License (MIT)
  *

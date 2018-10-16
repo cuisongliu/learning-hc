@@ -1,4 +1,4 @@
-package com.cuisongliu.concurrency.example.syncContainer;
+package com.cuisongliu.concurrency.example.container.concurrent;
 /*
  * The MIT License (MIT)
  *
@@ -26,31 +26,31 @@ package com.cuisongliu.concurrency.example.syncContainer;
 import com.cuisongliu.concurrency.annoations.ThreadSafe;
 import com.cuisongliu.concurrency.template.AbstractThreadClass;
 
-import java.util.Vector;
+import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
 
 /**
- * VectorExample1
- *
  * @author cuisongliu [cuisongliu@qq.com]
- * @since 2018-09-28 19:40
+ * @since 2018-09-28 20:33
  */
 @ThreadSafe
-public class VectorExample1 {
+public class ConcurrentHashMapExample {
     public static void main(String[] args) throws Exception {
         new AbstractThreadClass() {
-            private Vector<Integer> list = new Vector<>();
+            private Map<Integer,Integer> map = new ConcurrentHashMap<>();
             @Override
             public void testExec() {
-                list.add(1);
+
             }
 
             @Override
             public void testExec(int count) {
+                map.put(count,count);
             }
 
             @Override
             public String log4j() {
-                return list.size()+"";
+                return map.size()+"";
             }
         }.main();
     }

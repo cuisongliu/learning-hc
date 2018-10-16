@@ -1,4 +1,4 @@
-package com.cuisongliu.concurrency.example.concurrentContainer;
+package com.cuisongliu.concurrency.example.container.sync;
 /*
  * The MIT License (MIT)
  *
@@ -26,18 +26,20 @@ package com.cuisongliu.concurrency.example.concurrentContainer;
 import com.cuisongliu.concurrency.annoations.ThreadSafe;
 import com.cuisongliu.concurrency.template.AbstractThreadClass;
 
+import java.util.Hashtable;
 import java.util.Map;
-import java.util.concurrent.ConcurrentHashMap;
 
 /**
+ * HashMapExample1
+ *
  * @author cuisongliu [cuisongliu@qq.com]
- * @since 2018-09-28 20:33
+ * @since 2018-09-28 19:40
  */
 @ThreadSafe
-public class ConcurrentHashMapExample {
+public class HashTableExample1 {
     public static void main(String[] args) throws Exception {
         new AbstractThreadClass() {
-            private Map<Integer,Integer> map = new ConcurrentHashMap<>();
+            private Map<Integer,Integer> map = new Hashtable<>();
             @Override
             public void testExec() {
 
@@ -45,7 +47,7 @@ public class ConcurrentHashMapExample {
 
             @Override
             public void testExec(int count) {
-                map.put(count,count);
+                map.put(count,111);
             }
 
             @Override

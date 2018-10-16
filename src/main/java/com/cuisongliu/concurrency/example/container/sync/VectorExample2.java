@@ -1,4 +1,4 @@
-package com.cuisongliu.concurrency.example.syncContainer;
+package com.cuisongliu.concurrency.example.container.sync;
 /*
  * The MIT License (MIT)
  *
@@ -25,7 +25,6 @@ package com.cuisongliu.concurrency.example.syncContainer;
 
 import com.cuisongliu.concurrency.annoations.ThreadUnSafe;
 
-import java.util.Iterator;
 import java.util.Vector;
 
 /**
@@ -35,37 +34,26 @@ import java.util.Vector;
  * @since 2018-09-28 19:40
  */
 @ThreadUnSafe
-public class VectorExample3 {
-    private static void test1(Vector<Integer> v1){
-        for (Integer i:v1){
-            if (i==3)v1.remove(i);
-        }
-    }
-
-    private static void test2(Vector<Integer> v1){
-        Iterator<Integer> iterator = v1.iterator();
-        while (iterator.hasNext()){
-            Integer i = iterator.next();
-            if (i==3)iterator.remove();
-        }
-    }
-    private static void test3(Vector<Integer> v1){
-        Iterator<Integer> iterator = v1.iterator();
-        while (iterator.hasNext()){
-            Integer i = iterator.next();
-            if (i==3)v1.remove(i);
-        }
-    }
-    private static void test4(Vector<Integer> v1){
-        for (int i =0;i<v1.size();i++){
-            if (i==3)v1.remove(i);
-        }
-    }
+public class VectorExample2 {
+    private static Vector<Integer> vector = new Vector<>();
     public static void main(String[] args) throws Exception {
-        Vector<Integer> vector = new Vector<>();
-        vector.add(1);
-        vector.add(2);
-        vector.add(3);
-        test2(vector);
+        for(;;){
+            for (int i =0;i< 1000 ; i++){
+                vector.add(i);
+            }
+
+            new Thread(() -> {
+                for (int i =0;i< vector.size() ; i++){
+                    vector.remove(i);
+                }
+            }).start();
+
+            new Thread(() -> {
+                for (int i =0;i< vector.size() ; i++){
+                    vector.get(i);
+                }
+            }).start();
+        }
+
     }
 }

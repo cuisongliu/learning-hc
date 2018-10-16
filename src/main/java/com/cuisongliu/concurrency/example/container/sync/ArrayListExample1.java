@@ -1,4 +1,4 @@
-package com.cuisongliu.concurrency.example.syncContainer;
+package com.cuisongliu.concurrency.example.container.sync;
 /*
  * The MIT License (MIT)
  *
@@ -26,33 +26,32 @@ package com.cuisongliu.concurrency.example.syncContainer;
 import com.cuisongliu.concurrency.annoations.ThreadUnSafe;
 import com.cuisongliu.concurrency.template.AbstractThreadClass;
 
-import java.util.HashMap;
-import java.util.Map;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
- * HashMapExample1
+ * ArrayList
  *
  * @author cuisongliu [cuisongliu@qq.com]
  * @since 2018-09-28 19:40
  */
 @ThreadUnSafe
-public class HashMapExample1 {
+public class ArrayListExample1 {
     public static void main(String[] args) throws Exception {
         new AbstractThreadClass() {
-            private Map<Integer,Integer> map = new HashMap<>();
+            private List<Integer> list = new ArrayList<>();
             @Override
             public void testExec() {
-
+                list.add(1);
             }
 
             @Override
             public void testExec(int count) {
-                map.put(count,111);
             }
 
             @Override
             public String log4j() {
-                return map.size()+"";
+                return list.size()+"";
             }
         }.main();
     }

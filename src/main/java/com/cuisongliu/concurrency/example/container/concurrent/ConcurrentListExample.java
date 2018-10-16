@@ -1,4 +1,4 @@
-package com.cuisongliu.concurrency.example.concurrentContainer;
+package com.cuisongliu.concurrency.example.container.concurrent;
 /*
  * The MIT License (MIT)
  *
@@ -26,31 +26,30 @@ package com.cuisongliu.concurrency.example.concurrentContainer;
 import com.cuisongliu.concurrency.annoations.ThreadSafe;
 import com.cuisongliu.concurrency.template.AbstractThreadClass;
 
-import java.util.Set;
-import java.util.concurrent.ConcurrentSkipListSet;
+import java.util.List;
+import java.util.concurrent.CopyOnWriteArrayList;
 
 /**
  * @author cuisongliu [cuisongliu@qq.com]
  * @since 2018-09-28 20:33
  */
 @ThreadSafe
-public class ConcurrentTreeSetExample {
+public class ConcurrentListExample {
     public static void main(String[] args) throws Exception {
         new AbstractThreadClass() {
-            private Set<Integer> set = new ConcurrentSkipListSet<>();
+            private List<Integer> list = new CopyOnWriteArrayList<>();//重入锁+复制数组
             @Override
             public void testExec() {
-
+                list.add(1);
             }
 
             @Override
             public void testExec(int count) {
-                set.add(count);
             }
 
             @Override
             public String log4j() {
-                return set.size()+"";
+                return list.size()+"";
             }
         }.main();
     }

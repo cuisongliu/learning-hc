@@ -1,4 +1,4 @@
-package com.cuisongliu.concurrency.example.syncContainer;
+package com.cuisongliu.concurrency.example.container.sync;
 /*
  * The MIT License (MIT)
  *
@@ -23,36 +23,34 @@ package com.cuisongliu.concurrency.example.syncContainer;
  * THE SOFTWARE.
  */
 
-import com.cuisongliu.concurrency.annoations.ThreadUnSafe;
+import com.cuisongliu.concurrency.annoations.ThreadSafe;
 import com.cuisongliu.concurrency.template.AbstractThreadClass;
 
-import java.util.HashSet;
-import java.util.Set;
+import java.util.Vector;
 
 /**
- * HashSetExample1
+ * VectorExample1
  *
  * @author cuisongliu [cuisongliu@qq.com]
  * @since 2018-09-28 19:40
  */
-@ThreadUnSafe
-public class HashSetExample1 {
+@ThreadSafe
+public class VectorExample1 {
     public static void main(String[] args) throws Exception {
         new AbstractThreadClass() {
-            private Set<Integer> set = new HashSet<>();
+            private Vector<Integer> list = new Vector<>();
             @Override
             public void testExec() {
-
+                list.add(1);
             }
 
             @Override
             public void testExec(int count) {
-                set.add(count);
             }
 
             @Override
             public String log4j() {
-                return set.size()+"";
+                return list.size()+"";
             }
         }.main();
     }

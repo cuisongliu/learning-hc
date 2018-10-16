@@ -4,4 +4,4 @@
  * HashTable
  * Collections.synchronized*
  */
-package com.cuisongliu.concurrency.example.syncContainer;
+package com.cuisongliu.concurrency.example.container.sync;
